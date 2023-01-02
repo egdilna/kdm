@@ -1,0 +1,30 @@
+@startuml zakladnisubjektyajejichzdroje
+allow_mixing
+PACKAGE "Subjekty" as zakladnisubjekty {
+CLASS "Fyzická osoba" as subjektfo 
+CLASS "Právnická osoba" as subjektpo 
+CLASS "Podnikající fyzická osoba" as subjektpfo 
+CLASS "Osoba samostatně výdělečně činná" as osvc 
+CLASS "Orgán veřejné moci" as OVM 
+ABSTRACT "podniká" as podnika 
+ABSTRACT "Má živnostenské oprávnění" as mazivnostenskylist 
+ABSTRACT "vykonává veřejnou moc" as jeOVM 
+}
+subjektfo -> podnika
+podnika -> subjektpfo
+subjektfo -> mazivnostenskylist
+mazivnostenskylist -> osvc
+subjektpfo..> osvc
+subjektpo -> jeOVM
+jeOVM -> OVM
+PACKAGE "Základní registry jako zdroje" {
+DATABASE "Registr obyvatel" as ROB 
+DATABASE "Registr osob" as ROS 
+DATABASE "Registr práv a povinností" as RPP 
+}
+ROB --> subjektfo
+ROS --> subjektpo
+ROS --> subjektpfo
+ROS --> osvc
+RPP --> OVM
+@enduml
